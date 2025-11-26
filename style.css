@@ -14,23 +14,29 @@ header,footer {
     padding: 32px;
     height: calc(100dvh - 140px) ;
     background-image: url('img/background.jpg');
+    overflow-y: auto;
 }
 .chat-row {
     display: flex;
     margin-bottom: 32px;
 }
 .chat-message {
-    background-color: #d5f9ba;
     padding: 8px;
     border-radius: 8px;
     box-shadow: 3px 3px 10px #00000080;
 }
 
-.chat.row.sent > .chat-message{}
 
 time {
     font-size: 10px;
     color: #aaaaaa;
+}
+.chat-row.sent > .chat-message{
+     background-color: #d5f9ba; 
+
+}
+.chat-row.received > .chat-message{
+         background-color: #ffffff;
 }
 
 .chat-row.sent {
@@ -38,4 +44,55 @@ time {
 }
 .chat-row.received {
     justify-content: flex-start;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+input {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 16px;
+    border: none;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    font-size: 32px;
+    color: #666666;
+    cursor: pointer;
+}
+
+/*It's applied just when the mouse is above*/
+button:hover {
+    color: green;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-right {
+    display: flex;
+    gap: 8px;
+    font-size: 21px;
+    color: #666666;
 }
