@@ -1,12 +1,13 @@
-
+console.log()
 
 //let's take the elements that we need 
 const input = document.querySelector('input')
 const button = document.querySelector('button')
 const ChatBox = document.querySelector('.chat-box') // in this case we don't have kust one div block so we take the class
 
+const messages = []
 button.addEventListener('click', SendMessage)
-button.addEventListener('keyup', function(event){
+input.addEventListener('keyup', function(event){
     if(event.key == 'Enter'){
         SendMessage()
     }
