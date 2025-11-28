@@ -1,9 +1,13 @@
 console.log()
 
+const endpoint = 'post https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?Key=AIzaSyDy2cX3iwczhR1bjVulXDIaKDoyubY34l8'
+
+const systemPrompt = 'You are Christ a friend that reply in a kinda and friendly way. Reply in english with a natural tone like a friend will do in a chat. keep answer short and spontaneous'
 //let's take the elements that we need 
 const input = document.querySelector('input')
 const button = document.querySelector('button')
 const ChatBox = document.querySelector('.chat-box') // in this case we don't have kust one div block so we take the class
+
 
 const messages = []
 button.addEventListener('click', SendMessage)
@@ -21,6 +25,7 @@ function SendMessage(){
     input.value = ''
     input.focus() // to be ready to write again
     ChatBox.scrollTop = ChatBox.scrollHeight //scroll as the height of the ChatBox
+    getAnswerFromGemini()
 }
 
 function ShowMessages(){
@@ -47,4 +52,38 @@ function addMessage(MessageType, messageText){
     }
     messages.push(newMessage)
     ShowMessages()
+}
+
+
+
+/* ai implementation*/
+
+function formatChatForGemini(){
+    const formattedChat = []
+
+    for(const message of messages){
+        formattedChat.push({
+            parts: [{text: message.text}],
+            role: message.type == 'sent' ? 'user' : 'model'
+        })
+    }
+    console.log(formattedChat)
+}
+
+formattedChat.unshift({
+    parts: [{text: systemPrompt }],
+    role: 'user',
+})
+
+async function getAnswerFromGemini(){
+    const chatForGemini = formatChatForGemini()
+    const response = await fetch(endpoint,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({contents: chatForGemini}) 
+    
+    })
+    const data = await response.json()
+    const answer = data.candidates[0].contents.parts[0].text
+    addMessage('receive', answer)
 }
